@@ -1,23 +1,20 @@
 // ------------------ Grabbing Elements from html  ------------------ //
-let displayTimer = document.getElementById("time");
-let startScreen = document.getElementById("start-screen");
-let startButton = document.getElementById("start");
-let questionsContainer = document.getElementById("questions");
-let questionTitle = document.getElementById("question-title");
-let choices = document.getElementById("choices");
-let endScreen = document.getElementById("end-screen");
-let finalScore = document.getElementById("final-score");
-let initials = document.getElementById("initials");
-let submitButton = document.getElementById("submit");
+var displayTimer = document.getElementById("time");
+var startScreen = document.getElementById("start-screen");
+var startButton = document.getElementById("start");
+var questionsContainer = document.getElementById("questions");
+var questionTitle = document.getElementById("question-title");
+var choices = document.getElementById("choices");
+var endScreen = document.getElementById("end-screen");
+var finalScore = document.getElementById("final-score");
+var initials = document.getElementById("initials");
+var submitButton = document.getElementById("submit");
+var feedback = document.getElementById("feedback");
 
 // console.log(timeCounter.previousSibling.textContent);
 // console.log(timeCounter.innerHTML);
 
-// ------------ On Default ----------- //
-const duration = 11;
-let score = 0;
-
-// -------------------- Quiz Questions & Answers  ---------------- //
+// ================ Quiz Questions & Answers ================ //
 var quizArray = [
   {
     question: "Which HTML tag is used to create a hyperlink?",
@@ -71,6 +68,11 @@ var quizArray = [
   },
 ];
 
+let timeLeft = 121;
+let score = 0;
+
+// ================== Functions ================== //
+
 // ------------- Start Quiz ------------ //
 function startQuiz() {
   startScreen.classList.add("hide");
@@ -79,12 +81,9 @@ function startQuiz() {
   ShowQuestions();
 }
 
-startButton.addEventListener("click", startQuiz);
-
 // ---------------- Start timer --------------- //
 function startTimer() {
-  let timeLeft = duration;
-  let timer = setInterval(() => {
+  var timer = setInterval(() => {
     if (timeLeft > 0) {
       timeLeft--;
       displayTimer.innerHTML = timeLeft;
@@ -96,16 +95,44 @@ function startTimer() {
 }
 
 // -------------- Show Questions -------------- //
-var currentQuestion = Math.floor(Math.random() * quizArray.length);
-// create variable to get a random question from the array
+// create variable to get a random question from the quizArray
+var currentQuestion = quizArray[Math.floor(Math.random() * quizArray.length)];
+var currentAnswer = currentQuestion.answer;
+var selectedOption;
+var questionIndex = 0;
+
 // Clearing the previous options
 // using a for loop to to check the number of options, then create a button for each option
+// .addEventListener to
 function ShowQuestions() {
-  questionTitle.innerHTML = quizArray[currentQuestion].question;
+  questionTitle.innerHTML = currentQuestion.question;
   choices.innerHTML = "";
-  for (let i = 0; i < quizArray[currentQuestion].options.length; i++) {
+  for (let i = 0; i < currentQuestion.options.length; i++) {
     let option = document.createElement("button");
-    option.innerHTML = quizArray[currentQuestion].options[i];
+    option.innerHTML = currentQuestion.options[i];
+    option.addEventListener("click", function () {
+      selectedOption = this.innerHTML;
+      checkAnswer(this);
+    });
     choices.appendChild(option);
   }
 }
+
+// Checking if the user has selected the correct answer
+function checkAnswer(element) {
+  if (selectedOption === currentAnswer) {
+    score++;
+    feedback.classList.remove("hide");
+    feedback.innerHTML = "Correct!";
+    element.setAttribute("style", "background-color:#06b66c");
+  } else {
+    timeLeft -= 10;
+    feedback.classList.remove("hide");
+    feedback.innerHTML = "Nope!";
+    element.setAttribute("style", "background-color:#d4142a");
+  }
+}
+
+// ================ Event Listener ================ //
+
+startButton.addEventListener("click", startQuiz);
