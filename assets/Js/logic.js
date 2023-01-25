@@ -134,7 +134,8 @@ function checkAnswer(element) {
     element.style.backgroundColor = "#d4142a";
   }
   shownQuestions.push(currentQuestion);
-  // Filtering out questions that has been asked so that it does not show again
+  // putting answered question into empty array, then
+  // Removing questions that have already been asked from quiz array
   quizArray = quizArray.filter((question) => !shownQuestions.includes(question));
   questionIndex++;
   currentQuestion = quizArray[Math.floor(Math.random() * quizArray.length)];
