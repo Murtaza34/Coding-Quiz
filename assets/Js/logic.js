@@ -101,9 +101,7 @@ var currentAnswer = currentQuestion.answer;
 var selectedOption;
 var questionIndex = 0;
 
-// Clearing the previous options
-// using a for loop to to check the number of options, then create a button for each option
-// .addEventListener to
+
 function ShowQuestions() {
   questionTitle.innerHTML = currentQuestion.question;
   choices.innerHTML = "";
