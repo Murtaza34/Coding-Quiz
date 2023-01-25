@@ -18,11 +18,11 @@ understanding DOM Traversal and Manipulation was beneficial, I learned how to us
 
 ### View Project
 
-To view project, visit [GitHub page](https://github.com/Murtaza34/Random-Password-Generator) for this project. 
+To view project, visit [GitHub page](https://murtaza34.github.io/Multiple-Choice-Coding-Quiz/) for this project. 
 
-### Screenshot
+<!-- ### Screenshot
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here) -->
 
 ### Built With 
 
