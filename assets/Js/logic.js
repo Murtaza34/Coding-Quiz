@@ -15,7 +15,7 @@ var feedback = document.getElementById("feedback");
 // console.log(timeCounter.innerHTML);
 
 // ================ Quiz Questions & Answers ================ //
-var quizArray = [
+let quizArray = [
   {
     question: "Which HTML tag is used to create a hyperlink?",
     options: ["a", "link", "href", "url"],
@@ -96,7 +96,7 @@ function startTimer() {
 
 // -------------- Show Questions -------------- //
 // create variable to get a random question from the quizArray
-var currentQuestion = quizArray[Math.floor(Math.random() * quizArray.length)];
+currentQuestion = quizArray[Math.floor(Math.random() * quizArray.length)];
 var currentAnswer = currentQuestion.answer;
 var selectedOption;
 var questionIndex = 0;
@@ -118,19 +118,28 @@ function ShowQuestions() {
   }
 }
 
+let shownQuestions = [];
+
 // Checking if the user has selected the correct answer
 function checkAnswer(element) {
   if (selectedOption === currentAnswer) {
     score++;
     feedback.classList.remove("hide");
     feedback.innerHTML = "Correct!";
-    element.setAttribute("style", "background-color:#06b66c");
+    element.style.backgroundColor = "#06b66c";
   } else {
     timeLeft -= 10;
     feedback.classList.remove("hide");
-    feedback.innerHTML = "Nope!";
-    element.setAttribute("style", "background-color:#d4142a");
+    feedback.innerHTML = "Incorrect!";
+    element.style.backgroundColor = "#d4142a";
   }
+  shownQuestions.push(currentQuestion);
+  // Filtering out questions that has been asked so that it does not show again
+  quizArray = quizArray.filter((question) => !shownQuestions.includes(question));
+  questionIndex++;
+  currentQuestion = quizArray[Math.floor(Math.random() * quizArray.length)];
+  currentAnswer = currentQuestion.answer;
+  ShowQuestions();
 }
 
 // ================ Event Listener ================ //
